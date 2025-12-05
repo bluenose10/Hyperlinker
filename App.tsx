@@ -155,26 +155,19 @@ export default function App() {
   const handleDownloadXLSX = useCallback(() => {
     if (hyperlinks.length === 0) return;
 
-    const ws = XLSX.utils.aoa_to_sheet([["Clickable Link"]]);
+    const data = [["Clickable Link"]];
 
-    hyperlinks.forEach((url, index) => {
+    hyperlinks.forEach((url) => {
       const href = getAbsoluteUrl(url);
-      const cellRef = XLSX.utils.encode_cell({ r: index + 1, c: 0 });
-      ws[cellRef] = {
-        t: 's',
-        v: url,
-        l: { Target: href, Tooltip: href },
-        s: {
-          font: { color: { rgb: "0563C1" }, underline: true }
-        }
-      };
+      data.push([{ f: `HYPERLINK("${href}","${url}")` }]);
     });
 
+    const ws = XLSX.utils.aoa_to_sheet(data);
     ws['!cols'] = [{ wch: 50 }];
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Hyperlinks');
-    XLSX.writeFile(wb, 'hyperlinks.xlsx');
+    XLSX.writeFile(wb, 'hyperlinks.xlsx', { bookType: 'xlsx' });
   }, [hyperlinks]);
   
   const handleUploadAreaClick = () => fileInputRef.current?.click();
