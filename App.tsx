@@ -135,7 +135,7 @@ export default function App() {
     const csvRows = ['Clickable Link'];
     hyperlinks.forEach(url => {
       const href = getAbsoluteUrl(url);
-      csvRows.push(`=HYPERLINK("${href}","${url}")`);
+      csvRows.push(href);
     });
 
     const csvContent = csvRows.join('\n');
@@ -157,7 +157,7 @@ export default function App() {
 
     hyperlinks.forEach((url) => {
       const href = getAbsoluteUrl(url);
-      data.push([{ f: `HYPERLINK("${href}","${url}")` }]);
+      data.push([href]);
     });
 
     const ws = XLSX.utils.aoa_to_sheet(data);
