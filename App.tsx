@@ -132,15 +132,13 @@ export default function App() {
   const handleDownloadCSV = useCallback(() => {
     if (hyperlinks.length === 0) return;
 
-    const csvHeader = 'Clickable Link\n';
-    const csvRows = hyperlinks.map(url => {
+    const csvRows = ['Clickable Link'];
+    hyperlinks.forEach(url => {
       const href = getAbsoluteUrl(url);
-      const escapedHref = href.replace(/"/g, '""');
-      const escapedUrl = url.replace(/"/g, '""');
-      return `=HYPERLINK("${escapedHref}","${escapedUrl}")`;
-    }).join('\n');
+      csvRows.push(`=HYPERLINK("${href}","${url}")`);
+    });
 
-    const csvContent = csvHeader + csvRows;
+    const csvContent = csvRows.join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
