@@ -1,0 +1,5 @@
+{
+  "name": "Bulk Hyperlink Generator for HTML, CSV & XLSX",
+  "description": "Instantly convert a list of URLs into clickable hyperlinks. Paste or upload your list to generate HTML code, or download a fully formatted CSV or XLSX file. Perfect for SEO, marketers, and developers.",
+  "requestFramePermissions": []
+}

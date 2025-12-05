@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Preconnect to CDNs for faster loading -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdn.sheetjs.com">
+    <link rel="preconnect" href="https://aistudiocdn.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://cdn.sheetjs.com">
+    <link rel="dns-prefetch" href="https://aistudiocdn.com">
+
+    <title>Free Hyperlink Generator - Create Hyperlinks from URLs Instantly</title>
+    <meta name="description" content="Free hyperlink generator tool. Create hyperlinks from URLs instantly. Convert URL to hyperlink for SEO and web development. Bulk process links with our free online tool." />
+    <meta name="keywords" content="hyperlink generator, hyperlink, create hyperlink, url to hyperlink, create a web link, hyperlink create, free hyperlink tool, bulk hyperlink generator, convert url to link" />
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Lynkiey">
+    <link rel="apple-touch-icon" href="/icon.svg">
+
+    <!-- FAQ Schema for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I create a hyperlink?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Simply paste your URLs into the text box (one per line), or upload a file. Click 'Generate Links' and you'll instantly get clickable hyperlinks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I bulk create hyperlinks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Paste hundreds or thousands of URLs at once, or upload CSV, TXT, or Excel files."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What file formats are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We support TXT, CSV, and Excel files (.xlsx, .xls). Drag and drop or browse to upload."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, completely free with unlimited conversions. No sign-up required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I customize anchor text?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely! Set custom anchor text for all links, or leave blank to use the URL."
+          }
+        }
+      ]
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/"
+  }
+}
+</script>
+    <style>
+      @keyframes moveGrid {
+        from { background-position: 0 0; }
+        to { background-position: -100px 100px; }
+      }
+      body {
+        background-color: #000;
+        background-image:
+          linear-gradient(rgba(163, 230, 53, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(163, 230, 53, 0.05) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: moveGrid 4s linear infinite;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+      }
+    </style>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body class="antialiased">
+    <div id="root"></div>
+
+    <!-- Hidden form for Netlify Forms detection -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <script type="module" src="/index.tsx"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered:', registration);
+            })
+            .catch((error) => {
+              console.log('SW registration failed:', error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

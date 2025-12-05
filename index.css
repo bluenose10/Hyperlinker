@@ -1,0 +1,31 @@
+/* Critical CSS - loaded inline in production */
+/* Minimal CSS file for any custom overrides */
+
+/* Ensure smooth scrolling is applied */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize font loading */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize image and media loading */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent layout shift */
+textarea {
+  resize: vertical;
+  min-height: 200px;
+}
+
+/* Optimize focus states for accessibility */
+*:focus-visible {
+  outline: 2px solid #a3e635;
+  outline-offset: 2px;
+}
