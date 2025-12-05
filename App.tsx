@@ -132,14 +132,12 @@ export default function App() {
   const handleDownloadCSV = useCallback(() => {
     if (hyperlinks.length === 0) return;
 
-    const csvHeader = '"Clickable Link"\n';
+    const csvHeader = 'Clickable Link\n';
     const csvRows = hyperlinks.map(url => {
       const href = getAbsoluteUrl(url);
-      const escapedHrefArg = href.replace(/"/g, '""');
-      const escapedUrlArg = url.replace(/"/g, '""');
-      const formulaContent = `=HYPERLINK("${escapedHrefArg}","${escapedUrlArg}")`;
-      const formulaField = `"${formulaContent.replace(/"/g, '""')}"`;
-      return formulaField;
+      const escapedHref = href.replace(/"/g, '""');
+      const escapedUrl = url.replace(/"/g, '""');
+      return `=HYPERLINK("${escapedHref}","${escapedUrl}")`;
     }).join('\n');
 
     const csvContent = csvHeader + csvRows;
@@ -157,14 +155,21 @@ export default function App() {
   const handleDownloadXLSX = useCallback(() => {
     if (hyperlinks.length === 0) return;
 
-    const header = ["Clickable Link"];
-    const data = hyperlinks.map(url => {
+    const ws = XLSX.utils.aoa_to_sheet([["Clickable Link"]]);
+
+    hyperlinks.forEach((url, index) => {
       const href = getAbsoluteUrl(url);
-      const linkCell = { v: url, l: { Target: href, Tooltip: `Navigate to ${href}` } };
-      return [linkCell];
+      const cellRef = XLSX.utils.encode_cell({ r: index + 1, c: 0 });
+      ws[cellRef] = {
+        t: 's',
+        v: url,
+        l: { Target: href, Tooltip: href },
+        s: {
+          font: { color: { rgb: "0563C1" }, underline: true }
+        }
+      };
     });
 
-    const ws = XLSX.utils.aoa_to_sheet([header, ...data]);
     ws['!cols'] = [{ wch: 50 }];
 
     const wb = XLSX.utils.book_new();
