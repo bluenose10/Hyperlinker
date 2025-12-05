@@ -4,7 +4,8 @@
       "Bash(npm install:*)",
       "Bash(npm start)",
       "Bash(git add:*)",
-      "Bash(dir /a NUL)"
+      "Bash(dir /a NUL)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit - Lynkiey PWA Hyperlink Generator\n\n- Complete hyperlink generator with bulk processing\n- PWA support with offline capability and install prompt\n- SEO optimized with meta tags, sitemap, robots.txt, and FAQ schema\n- Responsive design with mobile-first approach\n- Modern UI with lime-400 green theme and animated backgrounds\n- Netlify Forms integration for contact page\n- Legal pages (Privacy Policy, Terms of Service)\n- FAQ accordion with dropdown functionality\n- CSV/XLSX export with clickable hyperlinks\n- Drag-and-drop file upload support\n- Service worker for offline functionality\n- Robot icon branding\n\n🤖 Generated with Claude Code\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []
