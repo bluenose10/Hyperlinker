@@ -486,7 +486,7 @@ export default function App() {
                           const valid = isValidUrl(href);
                           return (
                               <li key={index} className="flex items-center text-sm">
-                                <a href={valid ? href : '#'} target="_blank" rel="noopener noreferrer" className={`break-all text-lime-400 hover:underline ${!valid ? 'cursor-not-allowed text-red-500 line-through decoration-red-500' : ''}`} title={valid ? url : 'Invalid URL'}>{url}</a>
+                                <a href={valid ? href : '#'} target="_blank" rel="noopener noreferrer" className={`break-all text-blue-500 hover:text-blue-400 underline ${!valid ? 'cursor-not-allowed text-red-500 line-through decoration-red-500' : ''}`} title={valid ? url : 'Invalid URL'}>{url}</a>
                               </li>
                           );
                         })}
