@@ -129,43 +129,36 @@ export default function App() {
     return `https://${url}`;
   };
 
-  const handleDownloadCSV = useCallback(() => {
-    if (hyperlinks.length === 0) return;
-
-    const csvRows = ['Clickable Link'];
-    hyperlinks.forEach(url => {
-      const href = getAbsoluteUrl(url);
-      csvRows.push(href);
-    });
-
-    const csvContent = csvRows.join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'hyperlinks.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  }, [hyperlinks]);
-  
   const handleDownloadXLSX = useCallback(() => {
     if (hyperlinks.length === 0) return;
 
-    const data = [["Clickable Link"]];
+    const ws: any = {};
+    const range = { s: { c: 0, r: 0 }, e: { c: 0, r: hyperlinks.length } };
 
-    hyperlinks.forEach((url) => {
+    // Header
+    ws['A1'] = { v: 'Clickable Link', t: 's' };
+
+    // Add hyperlinks
+    hyperlinks.forEach((url, index) => {
       const href = getAbsoluteUrl(url);
-      data.push([href]);
+      const cellAddress = `A${index + 2}`;
+
+      ws[cellAddress] = {
+        v: href,
+        t: 's',
+        l: { Target: href },
+        s: {
+          font: { color: { rgb: "0563C1" }, underline: true }
+        }
+      };
     });
 
-    const ws = XLSX.utils.aoa_to_sheet(data);
-    ws['!cols'] = [{ wch: 50 }];
+    ws['!ref'] = XLSX.utils.encode_range(range);
+    ws['!cols'] = [{ wch: 60 }];
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Hyperlinks');
-    XLSX.writeFile(wb, 'hyperlinks.xlsx', { bookType: 'xlsx' });
+    XLSX.writeFile(wb, 'hyperlinks.xlsx');
   }, [hyperlinks]);
   
   const handleUploadAreaClick = () => fileInputRef.current?.click();
@@ -498,12 +491,9 @@ export default function App() {
                 {hyperlinks.length > 0 && (
                   <div className="border-t border-zinc-700 p-3 bg-zinc-800/50 rounded-b-lg">
                     {hyperlinks.length > 5 && ( <p className="text-xs text-zinc-400 text-center mb-3">Showing 5 of {hyperlinks.length} links.</p> )}
-                    <div className="flex items-center justify-center gap-2">
-                        <button onClick={handleDownloadCSV} className="text-xs flex items-center gap-1.5 px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-zinc-100 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-800 focus:ring-lime-500">
-                          <DownloadIcon className="w-4 h-4" /> CSV
-                        </button>
-                        <button onClick={handleDownloadXLSX} className="text-xs flex items-center gap-1.5 px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-zinc-100 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-800 focus:ring-lime-500">
-                          <DownloadIcon className="w-4 h-4" /> XLSX
+                    <div className="flex items-center justify-center">
+                        <button onClick={handleDownloadXLSX} className="text-xs flex items-center gap-1.5 px-4 py-2 bg-lime-500 hover:bg-lime-600 text-black font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-800 focus:ring-lime-400">
+                          <DownloadIcon className="w-4 h-4" /> Download Excel File
                         </button>
                     </div>
                   </div>
